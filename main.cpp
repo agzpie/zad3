@@ -1,28 +1,31 @@
 #include <cstdlib>
 #include <iostream>
-#include <string>
-#include <vector>
 using namespace std;
 
 class Figure {
 protected:
     string name;
 public:
-    void draw() {
+    virtual void draw() {}
 
-    }
     string getName() {
-        cout << "Figure: " << name << endl;
+        return name;
     }
+
+    Figure(){}
+    ~Figure(){}
 };
 
-class ManagerFigures{
+class FigureManager{
 public:
     void drawFigure(Figure* figure) {
-        cout << " Draw a figure " << endl;
-        figure->getName();
+        cout << "Draw a figure: " << figure->getName() << endl;
         figure->draw();
+        cout << "" << endl;
     }
+
+    FigureManager(){}
+    ~FigureManager(){}
 };
 
 class Square : public Figure{
@@ -43,6 +46,10 @@ public:
             cout << "-";
         }
         cout << "" << endl;
+    }
+
+    Square(){
+        name = "square";
     }
 };
 
@@ -65,6 +72,10 @@ public:
         }
         cout << "" << endl;
     }
+
+    Rectangle() {
+        name = "rectangle";
+    }
 };
 
 class Line : public Figure{
@@ -75,20 +86,21 @@ public:
         }
         cout << "" << endl;
     }
+
+    Line(){
+        name = "line";
+    }
 };
 
-
 int main() {
-    std::cout << "Hello, World!" << std::endl;
     Square square;
     Rectangle rectangle;
     Line line;
 
-    //ManagerFigures manager;
-
-    square.draw();
-    rectangle.draw();
-    line.draw();
+    FigureManager manager;
+    manager.drawFigure(&square);
+    manager.drawFigure(&rectangle);
+    manager.drawFigure(&line);
 
     return 0;
 }
